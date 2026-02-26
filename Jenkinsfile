@@ -37,7 +37,7 @@ pipeline {
                 }
             }
         }
-        stage("build image") {
+        stage("build and push image image") {
             /*
             when {
                 expression {
@@ -48,6 +48,8 @@ pipeline {
             steps {              
                 script {
                     buildImage 'luisyanez27/demo-app:jma-3.0'
+                    dockerLogin()
+                    dockerPush 'luisyanez27/demo-app:jma-3.0'
                 }
             }
         }
@@ -61,6 +63,7 @@ pipeline {
             */
             steps {
                 script {
+
                     gv.deployApp()
                 }
             }
