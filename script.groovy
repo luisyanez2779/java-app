@@ -1,3 +1,7 @@
+def testApp() {
+    echo 'deploying the application for branch $BRANCH_NAME...'
+} 
+
 def buildJar() {
     echo "building the application..."
     sh 'mvn package'
