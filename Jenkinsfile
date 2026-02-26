@@ -48,7 +48,7 @@ pipeline {
             steps {              
                 script {
                     buildImage 'luisyanez27/demo-app:jma-3.0'
-                    dockerLogin()
+                    dockerLogin 'luisyanez27/demo-app:jma-3.0'
                     dockerPush 'luisyanez27/demo-app:jma-3.0'
                 }
             }
