@@ -10,27 +10,46 @@ pipeline {
                 }
             }
         }
-        stage("build jar") {
+        stage("test") {
             steps {
                 script {
-                    echo "building jar"
-                    //gv.buildJar()
+                    gv.testApp()
+                }
+            }
+        }        
+        stage("build jar") {
+            when {
+                expression {
+                    $BRANCH_NAME == 'master'
+                }
+            }
+            steps {
+                script {
+                    gv.buildJar()
                 }
             }
         }
         stage("build image") {
-            steps {
+            when {
+                expression {
+                    $BRANCH_NAME == 'master'
+                }
+            }              
+            steps {              
                 script {
-                    echo "building image"
-                    //gv.buildImage()
+                    gv.buildImage()
                 }
             }
         }
         stage("deploy") {
+            when {
+                expression {
+                    $BRANCH_NAME == 'master'
+                }
+            }              
             steps {
                 script {
-                    echo "deploying"
-                    //gv.deployApp()
+                    gv.deployApp()
                 }
             }
         }
