@@ -1,9 +1,9 @@
 def testApp() {
-    echo "testing the application for $BRANCH_NAME..."
+    echo "testing the application for ${BRANCH_NAME}..."
 } 
 
 def buildJar() {
-    echo "building the application for $BRANCH_NAME..."
+    echo "building the application for ${BRANCH_NAME}..."
     sh 'mvn package'
 } 
 
@@ -17,7 +17,7 @@ def buildImage() {
 } 
 
 def deployApp() {
-    echo 'deploying the application for $BRANCH_NAME...'
+    echo "deploying the application for ${BRANCH_NAME}..."
 } 
 
 return this
