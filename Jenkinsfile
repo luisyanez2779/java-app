@@ -20,7 +20,7 @@ pipeline {
         stage("build jar") {
             when {
                 expression {
-                    $BRANCH_NAME == 'master'
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -32,7 +32,7 @@ pipeline {
         stage("build image") {
             when {
                 expression {
-                    $BRANCH_NAME == 'master'
+                    BRANCH_NAME == 'master'
                 }
             }              
             steps {              
@@ -44,7 +44,7 @@ pipeline {
         stage("deploy") {
             when {
                 expression {
-                    $BRANCH_NAME == 'master'
+                    BRANCH_NAME == 'master'
                 }
             }              
             steps {
