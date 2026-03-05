@@ -15,6 +15,9 @@ pipeline {
     tools {
       maven "maven-3.9" 
     }
+    environment {
+      IMAGE_NAME = 'luisyanez27/react-nodejs-app:rn-1.0'
+    }
     stages {
         stage("init") {
             steps {
@@ -26,21 +29,15 @@ pipeline {
         stage("test") {
             steps {
                 script {
-                    echo "Testing application..."
-                }
-            }
-            /*
-            steps {
-                script {
                     gv.testApp()
                 }
             }
-            */
-        }        
+        }
         stage("build jar") {
             steps {
                 script {
                     echo "Building jar..."
+                    buildJar()
                 }
             }
             /*
@@ -49,16 +46,14 @@ pipeline {
                     BRANCH_NAME == 'master'
                 }
             }
-            steps {
-                script {
-                    buildJar()
-                }
-            }*/
+            */
         }
         stage("build and push image image") {
             steps {
                 script {
-                    echo "Building application..."
+                    buildImage(env.IMAGE_NAME)
+                    dockerLogin(env.IMAGE_NAME)
+                    dockerPush(env.IMAGE_NAME)
                 }
             }
             /*
@@ -67,22 +62,13 @@ pipeline {
                     BRANCH_NAME == 'master'
                 }
             }
-            steps {              
-                script {
-                    buildImage 'luisyanez27/demo-app:jma-3.0'
-                    dockerLogin 'luisyanez27/demo-app:jma-3.0'
-                    dockerPush 'luisyanez27/demo-app:jma-3.0'
-                }
-            }
+
             */
         }
         stage("deploy") {
           steps {
               script {
-                def dockerCmd = 'docker run -d -p 3080:3080 luisyanez27/react-nodejs-app:rn-1.0'
-                sshagent(['ec2-server-key']) {
-                  sh "ssh -o StrictHostKeyChecking=no ec2-user@18.217.58.32 ${dockerCmd}"
-                }
+                deployToEC2(env.IMAGE_NAME)
               }
           }
 
