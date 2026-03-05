@@ -16,7 +16,7 @@ pipeline {
       maven "maven-3.9" 
     }
     environment {
-      IMAGE_NAME = 'luisyanez27/react-nodejs-app:rn-1.0'
+      IMAGE_NAME = 'luisyanez27/java-maven-app:jma-1.0'
     }
     stages {
         stage("init") {
@@ -48,7 +48,7 @@ pipeline {
             }
             */
         }
-        stage("build and push image image") {
+        stage("build and push image") {
             steps {
                 script {
                     buildImage(env.IMAGE_NAME)
@@ -71,7 +71,6 @@ pipeline {
                 deployToEC2(env.IMAGE_NAME)
               }
           }
-
             /*
             when {
                 expression {
