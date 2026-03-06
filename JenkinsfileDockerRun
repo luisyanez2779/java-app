@@ -40,6 +40,13 @@ pipeline {
                     buildJar()
                 }
             }
+            /*
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
+            */
         }
         stage("build and push image") {
             steps {
@@ -49,6 +56,14 @@ pipeline {
                     dockerPush(env.IMAGE_NAME)
                 }
             }
+            /*
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
+
+            */
         }
         stage("deploy") {
           steps {
@@ -56,6 +71,19 @@ pipeline {
                 deployToEC2(env.IMAGE_NAME)
               }
           }
+            /*
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
+
+            steps {
+                script {
+
+                    gv.deployApp()
+                }
+            }*/
         }
     }   
 }
