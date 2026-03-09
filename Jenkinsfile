@@ -16,7 +16,7 @@ pipeline {
       maven "maven-3.9" 
     }
     environment {
-      IMAGE_NAME = 'luisyanez27/java-maven-app:jma-1.0'
+      IMAGE_NAME = 'luisyanez27/java-maven-app:jma-2.0'
     }
     stages {
         stage("init") {
